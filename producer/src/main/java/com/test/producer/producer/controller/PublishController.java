@@ -47,7 +47,8 @@ public class PublishController {
 ////            Destination destination2=session2.createQueue("producer") ;
 ////            MessageProducer messageProducer2=session2.createProducer(destination2);
 ////            TextMessage message2=session2.createTextMessage("这是一个沙雕的消息222222");
-////            message2.acknowledge();//客户端用这个接收确认消息
+            //客户端用这个接收确认消息
+////            message2.acknowledge();
 ////            messageProducer2.send(message2);
 ////            session2.close();
             //客户端延迟接收
@@ -56,7 +57,8 @@ public class PublishController {
             MessageProducer messageProducer = session3.createProducer(destination);
             TextMessage message = session3.createTextMessage("这是一个沙雕的消息33333");
             messageProducer.send(message);
-            session3.commit();   // 不加commit客户端接收不到该消息
+            // 不加commit客户端接收不到该消息
+            session3.commit();
             session3.close();
         } catch (JMSException e) {
             e.printStackTrace();
