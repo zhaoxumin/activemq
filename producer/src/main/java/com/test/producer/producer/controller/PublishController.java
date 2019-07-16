@@ -32,8 +32,8 @@ public class PublishController {
     @RequestMapping("/queue")
     public String queue() {
 
-//        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.12.71:61616");
-//        try (Connection con = connectionFactory.createConnection()) {
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.12.71:61616");
+        try (Connection con = connectionFactory.createConnection()) {
 //            con.start();
 // //           Session session = con.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
 ////            Destination destination=session.createQueue("producer") ;
@@ -47,19 +47,20 @@ public class PublishController {
 ////            Destination destination2=session2.createQueue("producer") ;
 ////            MessageProducer messageProducer2=session2.createProducer(destination2);
 ////            TextMessage message2=session2.createTextMessage("这是一个沙雕的消息222222");
+////            message2.acknowledge();//客户端用这个接收确认消息
 ////            messageProducer2.send(message2);
 ////            session2.close();
-//            //客户端延迟接收
-//            Session session3 = con.createSession(Boolean.TRUE, Session.DUPS_OK_ACKNOWLEDGE);
-//            Destination destination = session3.createQueue("producer");
-//            MessageProducer messageProducer = session3.createProducer(destination);
-//            TextMessage message = session3.createTextMessage("这是一个沙雕的消息33333");
-//            messageProducer.send(message);
-//            session3.commit();   // 不加commit客户端接收不到该消息
-//            session3.close();
-//        } catch (JMSException e) {
-//            e.printStackTrace();
-//        }
+            //客户端延迟接收
+            Session session3 = con.createSession(Boolean.TRUE, Session.DUPS_OK_ACKNOWLEDGE);
+            Destination destination = session3.createQueue("producer");
+            MessageProducer messageProducer = session3.createProducer(destination);
+            TextMessage message = session3.createTextMessage("这是一个沙雕的消息33333");
+            messageProducer.send(message);
+            session3.commit();   // 不加commit客户端接收不到该消息
+            session3.close();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
 
 
         for (int i = 0; i < 10; i++) {
